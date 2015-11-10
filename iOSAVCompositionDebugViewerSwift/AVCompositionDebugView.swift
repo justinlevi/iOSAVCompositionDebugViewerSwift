@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import AVFoundation
 
 class AVCompositionDebugView: UIView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+  let drawingLayer: CALayer = CALayer()
+  let duration: CMTime = kCMTimeZero
+  let compositionRectWidth: CGFloat = 0
+  
+  var compositionTracks = []
+  var audioMixTracks = []
+  var videoCompositionStages = []
+  
+  let scaledDurationToWidth = 0
+  
+  let player: AVPlayer? = nil
+  
+  func synchronizeToComposition(composition: AVComposition, videoComposition: AVVideoComposition, audioMix: AVAudioMix) {}
 
 }
