@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E21515671BF22DAB00CCD06E /* AVCompositionDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */; };
 		E2194EF61BF13E0600531765 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2194EF51BF13E0600531765 /* AppDelegate.swift */; };
 		E2194EF81BF13E0600531765 /* AVCompositionDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */; };
 		E2194EFB1BF13E0600531765 /* AVCompositionDebugger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2194EF91BF13E0600531765 /* AVCompositionDebugger.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCompositionDebugView.swift; sourceTree = "<group>"; };
 		E2194EF21BF13E0600531765 /* iOSAVCompositionDebugViewerSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAVCompositionDebugViewerSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2194EF51BF13E0600531765 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCompositionDebugViewController.swift; sourceTree = "<group>"; };
@@ -62,8 +64,10 @@
 		E2194EF41BF13E0600531765 /* iOSAVCompositionDebugViewerSwift */ = {
 			isa = PBXGroup;
 			children = (
+				E2194F0B1BF142D200531765 /* SimpleEditor.swift */,
 				E2194EF51BF13E0600531765 /* AppDelegate.swift */,
 				E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */,
+				E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */,
 				E2194F0D1BF1460800531765 /* ArrayExtension.swift */,
 				E2194EF91BF13E0600531765 /* AVCompositionDebugger.storyboard */,
 				E2194EFC1BF13E0600531765 /* Assets.xcassets */,
@@ -71,7 +75,6 @@
 				E2194F071BF1424100531765 /* sample_clip1.m4v */,
 				E2194F081BF1424100531765 /* sample_clip2.mov */,
 				E2194F011BF13E0600531765 /* Info.plist */,
-				E2194F0B1BF142D200531765 /* SimpleEditor.swift */,
 			);
 			path = iOSAVCompositionDebugViewerSwift;
 			sourceTree = "<group>";
@@ -86,6 +89,7 @@
 				E2194EEE1BF13E0600531765 /* Sources */,
 				E2194EEF1BF13E0600531765 /* Frameworks */,
 				E2194EF01BF13E0600531765 /* Resources */,
+				E21515681BF230A200CCD06E /* Convert TODO:'s and FIXME's into warnings */,
 			);
 			buildRules = (
 			);
@@ -144,6 +148,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E21515681BF230A200CCD06E /* Convert TODO:'s and FIXME's into warnings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Convert TODO:'s and FIXME's into warnings";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E2194EEE1BF13E0600531765 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -152,6 +173,7 @@
 				E2194EF81BF13E0600531765 /* AVCompositionDebugViewController.swift in Sources */,
 				E2194F0C1BF142D200531765 /* SimpleEditor.swift in Sources */,
 				E2194EF61BF13E0600531765 /* AppDelegate.swift in Sources */,
+				E21515671BF22DAB00CCD06E /* AVCompositionDebugView.swift in Sources */,
 				E2194F0E1BF1460800531765 /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +324,7 @@
 				E2194F061BF13E0600531765 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
