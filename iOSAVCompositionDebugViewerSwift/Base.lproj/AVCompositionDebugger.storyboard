@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--AVCompositionDebugViewController-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <viewController id="BYZ-38-t0r" userLabel="AVCompositionDebugViewController" customClass="AVCompositionDebugViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Yj-wI-TMa" userLabel="Player View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="337.5"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBQ-VR-pDp" userLabel="Composition Debug View">
+                                <rect key="frame" x="0.0" y="337.5" width="600" height="262.5"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Yj-wI-TMa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1gw-zf-FjG"/>
+                            <constraint firstItem="6Yj-wI-TMa" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2QB-jq-qTh"/>
+                            <constraint firstItem="6Yj-wI-TMa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="b7T-ye-yEE"/>
+                            <constraint firstItem="6Yj-wI-TMa" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="9:16" id="iBe-Im-nX7"/>
+                            <constraint firstItem="iBQ-VR-pDp" firstAttribute="top" secondItem="6Yj-wI-TMa" secondAttribute="bottom" id="nqw-sb-zpk"/>
+                            <constraint firstItem="iBQ-VR-pDp" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="rBA-Qy-NcX"/>
+                            <constraint firstItem="iBQ-VR-pDp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tGc-63-UYN"/>
+                            <constraint firstAttribute="bottom" secondItem="iBQ-VR-pDp" secondAttribute="bottom" id="ycm-Qq-fvd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+            </objects>
+        </scene>
+    </scenes>
+</document>
