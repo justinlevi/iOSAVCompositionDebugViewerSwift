@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -22,14 +22,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eex-6p-q3g" userLabel="Player View" customClass="APLPlayerView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="337.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="42k-VO-2oR">
-                                                <rect key="frame" x="46" y="302.5" width="488" height="31"/>
+                                                <rect key="frame" x="46" y="303" width="488" height="31"/>
                                                 <animations/>
+                                                <connections>
+                                                    <action selector="beginScrubbing:" destination="BYZ-38-t0r" eventType="touchDown" id="Lji-uo-TOq"/>
+                                                    <action selector="endScrubbing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IXL-zU-TGe"/>
+                                                    <action selector="endScrubbing:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="gSv-bS-2xk"/>
+                                                    <action selector="endScrubbing:" destination="BYZ-38-t0r" eventType="touchCancel" id="u26-0i-8Ag"/>
+                                                    <action selector="scrub:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZDg-8P-X83"/>
+                                                </connections>
                                             </slider>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="--:--" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc5-SY-XQr">
-                                                <rect key="frame" x="548" y="307.5" width="52" height="20.5"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="--:--" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc5-SY-XQr">
+                                                <rect key="frame" x="548" y="308" width="52" height="20"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="52" id="iUq-BK-AuJ"/>
@@ -39,7 +46,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTi-1S-atm" userLabel="play">
-                                                <rect key="frame" x="0.0" y="297.5" width="40" height="40"/>
+                                                <rect key="frame" x="0.0" y="298" width="40" height="40"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Kqh-bS-bor"/>
@@ -48,6 +55,9 @@
                                                 <color key="tintColor" red="0.63921568630000003" green="0.70196078429999997" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                                                 <state key="normal" image="play"/>
+                                                <connections>
+                                                    <action selector="togglePlayPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J47-cn-1rD"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <animations/>
@@ -64,8 +74,8 @@
                                             <constraint firstItem="oc5-SY-XQr" firstAttribute="leading" secondItem="42k-VO-2oR" secondAttribute="trailing" constant="16" id="uEF-JA-iE7"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARS-Ka-k1R" userLabel="Composition Debug View" customClass="APLCompositionDebugView">
-                                        <rect key="frame" x="0.0" y="337.5" width="600" height="500"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARS-Ka-k1R" userLabel="Composition Debug View" customClass="AVCompositionDebugView" customModule="iOSAVCompositionDebugViewerSwift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="338" width="600" height="500"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -95,6 +105,13 @@
                             <constraint firstItem="DCN-Sd-46Z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="soO-9w-ki0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="compositionDebugView" destination="ARS-Ka-k1R" id="WM4-ha-2DY"/>
+                        <outlet property="currentTimeLabel" destination="oc5-SY-XQr" id="NY6-SV-Plp"/>
+                        <outlet property="playPauseButton" destination="zTi-1S-atm" id="QTv-Qc-XeR"/>
+                        <outlet property="playerView" destination="Eex-6p-q3g" id="4yM-jI-ilz"/>
+                        <outlet property="scrubber" destination="42k-VO-2oR" id="qLX-He-Krc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
