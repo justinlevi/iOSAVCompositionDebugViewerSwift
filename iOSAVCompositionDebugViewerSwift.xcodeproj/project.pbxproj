@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E21515671BF22DAB00CCD06E /* AVCompositionDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */; };
+		E215156A1BF2D41900CCD06E /* CMTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21515691BF2D41900CCD06E /* CMTimeUtils.swift */; };
 		E2194EF61BF13E0600531765 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2194EF51BF13E0600531765 /* AppDelegate.swift */; };
 		E2194EF81BF13E0600531765 /* AVCompositionDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */; };
 		E2194EFB1BF13E0600531765 /* AVCompositionDebugger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2194EF91BF13E0600531765 /* AVCompositionDebugger.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCompositionDebugView.swift; sourceTree = "<group>"; };
+		E21515691BF2D41900CCD06E /* CMTimeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMTimeUtils.swift; sourceTree = "<group>"; };
 		E2194EF21BF13E0600531765 /* iOSAVCompositionDebugViewerSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAVCompositionDebugViewerSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2194EF51BF13E0600531765 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCompositionDebugViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */,
 				E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */,
 				E2194F0D1BF1460800531765 /* ArrayExtension.swift */,
+				E21515691BF2D41900CCD06E /* CMTimeUtils.swift */,
 				E2194EF91BF13E0600531765 /* AVCompositionDebugger.storyboard */,
 				E2194EFC1BF13E0600531765 /* Assets.xcassets */,
 				E2194EFE1BF13E0600531765 /* LaunchScreen.storyboard */,
@@ -174,6 +177,7 @@
 				E2194F0C1BF142D200531765 /* SimpleEditor.swift in Sources */,
 				E2194EF61BF13E0600531765 /* AppDelegate.swift in Sources */,
 				E21515671BF22DAB00CCD06E /* AVCompositionDebugView.swift in Sources */,
+				E215156A1BF2D41900CCD06E /* CMTimeUtils.swift in Sources */,
 				E2194F0E1BF1460800531765 /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
