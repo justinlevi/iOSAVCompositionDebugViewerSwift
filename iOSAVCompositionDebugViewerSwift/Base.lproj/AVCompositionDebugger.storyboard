@@ -9,7 +9,7 @@
         <!--AVCompositionDebugViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="AVCompositionDebugViewController" customClass="AVCompositionDebugViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="AVCompositionDebugViewController" customClass="AVCompositionDebugViewController" customModule="iOSAVCompositionDebugViewerSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,7 +21,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCN-Sd-46Z">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eex-6p-q3g" userLabel="Player View" customClass="APLPlayerView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eex-6p-q3g" userLabel="Player View" customClass="APLPlayerView" customModule="iOSAVCompositionDebugViewerSwift" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="42k-VO-2oR">

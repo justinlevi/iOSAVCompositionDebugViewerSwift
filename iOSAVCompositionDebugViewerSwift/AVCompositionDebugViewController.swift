@@ -1,24 +1,6 @@
 import UIKit
 import AVFoundation
 
-/*
-    Player view backed by an AVPlayerLayer
-*/
-class APLPlayerView: UIView {
-  var player = AVPlayer()
-  
-  override var layer: AVPlayerLayer {
-    get{ return self.layer }
-    set{ self.layer = newValue }
-  }
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    
-    layer.player = player
-  }
-}
-
 
 class AVCompositionDebugViewController: UIViewController {
 
