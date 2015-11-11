@@ -1,11 +1,3 @@
-//
-//  AVCompositionDebugViewController.swift
-//  iOSAVCompositionDebugViewerSwift
-//
-//  Created by Justin Winter on 11/9/15.
-//  Copyright © 2015 soundslides. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 
