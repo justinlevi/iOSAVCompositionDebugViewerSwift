@@ -66,13 +66,13 @@
 		E2194EF41BF13E0600531765 /* iOSAVCompositionDebugViewerSwift */ = {
 			isa = PBXGroup;
 			children = (
-				E2194F0B1BF142D200531765 /* SimpleEditor.swift */,
 				E2194EF51BF13E0600531765 /* AppDelegate.swift */,
+				E2194EF91BF13E0600531765 /* AVCompositionDebugger.storyboard */,
 				E2194EF71BF13E0600531765 /* AVCompositionDebugViewController.swift */,
+				E2194F0B1BF142D200531765 /* SimpleEditor.swift */,
 				E21515661BF22DAB00CCD06E /* AVCompositionDebugView.swift */,
 				E2194F0D1BF1460800531765 /* ArrayExtension.swift */,
 				E21515691BF2D41900CCD06E /* CMTimeUtils.swift */,
-				E2194EF91BF13E0600531765 /* AVCompositionDebugger.storyboard */,
 				E2194EFC1BF13E0600531765 /* Assets.xcassets */,
 				E2194EFE1BF13E0600531765 /* LaunchScreen.storyboard */,
 				E2194F071BF1424100531765 /* sample_clip1.m4v */,
