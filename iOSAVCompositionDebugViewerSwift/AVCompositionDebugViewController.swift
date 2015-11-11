@@ -53,6 +53,8 @@ class AVCompositionDebugViewController: UIViewController {
 
     updateScubber()
     updateTimeLabel()
+    
+    setupEditingAndPlayback()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -62,13 +64,23 @@ class AVCompositionDebugViewController: UIViewController {
     player.addObserver(self, forKeyPath: "rate", options: [.Old, .New], context: &playerViewControllerKVOContext)
     playerView.player = player
     
-    // TODO: Fill in the rest of this
+    addTimeObserverToPlayer()
+    
+    // Build AVComposition and AVVideoComposition objects for playback
+    editor.buildCompositionObjectsForPlayback()
+    synchronizePlayerWithEditor()
+    
+    // Set our AVPlayer and all composition objects on the AVCompositionDebugView
+    compositionDebugView.player = player
+    compositionDebugView.synchronizeToComposition(editor.composition, videoComposition: editor.videoComposition, audioMix: editor.audioMix)
+    compositionDebugView.setNeedsDisplay()
   }
   
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
     
-    // TODO: Fill in the rest of this
+    player.pause()
+    removeTimeObserverFromPlayer()
   }
   
   // ============================================

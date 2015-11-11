@@ -71,7 +71,7 @@ class AVCompositionDebugView: UIView {
   
   var scaledDurationToWidth = 0.0
   
-  let player: AVPlayer? = nil
+  var player: AVPlayer? = nil
   
   
   // ============================================
