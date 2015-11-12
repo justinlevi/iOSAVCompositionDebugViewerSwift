@@ -14,7 +14,6 @@ class SimpleEditor {
   var videoComposition = AVMutableVideoComposition()
   var audioMix = AVMutableAudioMix()
   
-  
   // FIXME: Video Composition is not playing - figure out why??
   // FIXME: Bar animation is not working  - figure out why??
   func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix){

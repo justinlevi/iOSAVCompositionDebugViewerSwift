@@ -404,7 +404,7 @@ class AVCompositionDebugView: UIView {
         CGContextBeginPath(context)
         CGContextSetRGBStrokeColor(context, 0.95, 0.68, 0.09, 1.00) // yellow
         CGContextSetLineWidth(context, 3.0)
-        var firstPoint = false
+        var firstPoint = true
         for pointValue in mixTrack {
           let timeVolumePoint = pointValue
           var pointInRow = CGPoint()

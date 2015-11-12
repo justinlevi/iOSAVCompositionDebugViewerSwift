@@ -125,12 +125,11 @@ class AVCompositionDebugViewController: UIViewController {
     }
     
     if keyPath == "rate" {
-      let newRate = (change?[NSKeyValueChangeNewKey] as! NSNumber).doubleValue
-      if newRate == 1 {
+
         updatePlayePauseButton()
         updateScubber()
         updateTimeLabel()
-      }
+      
     }
     else if keyPath == "currentItem.status" {
       /* Once the AVPlayerItem becomes ready to play, i.e.
@@ -190,8 +189,8 @@ class AVCompositionDebugViewController: UIViewController {
       } catch {
         self.finish(.Failure(error))
       }
+      dispatch_group_leave(dispatchGroup)
     }
-    dispatch_group_leave(dispatchGroup)
   }
   
   func finish(result: Result) {
@@ -281,19 +280,21 @@ class AVCompositionDebugViewController: UIViewController {
   
   func addTimeObserverToPlayer() {
     guard timeObserverToken == nil else { return }
-    guard player.currentItem?.status == .ReadyToPlay else { return }
+    //guard player.currentItem?.status == .ReadyToPlay else { return }
     
     let duration = CMTimeGetSeconds(playerItemDuration())
     
     if isfinite(duration) {
       let width = CGRectGetWidth(self.scrubber.bounds)
       // Make sure we don't have a strong reference cycle by only capturing self as weak.
-      var interval = Int64(0.5 * duration / Double(width))
-      if interval > 1 { interval = 1 }
-      timeObserverToken = player.addPeriodicTimeObserverForInterval(CMTimeMake(interval, Int32(NSEC_PER_SEC)), queue: dispatch_get_main_queue()) {
+      let interval = CMTimeMake(1, 60)
+      timeObserverToken = player.addPeriodicTimeObserverForInterval(interval, queue: dispatch_get_main_queue()) {
         [weak self] time in
-        self?.updateScubber()
-        self?.updateTimeLabel()
+        
+        if self?.player.rate == 1 {
+          self?.updateScubber()
+          self?.updateTimeLabel()
+        }
       }
     }
     
