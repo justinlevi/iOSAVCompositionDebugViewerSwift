@@ -14,14 +14,9 @@ class SimpleEditor {
   var videoComposition = AVMutableVideoComposition()
   var audioMix = AVMutableAudioMix()
   
-  var playerItem: AVPlayerItem {
-    let playerItem = AVPlayerItem(asset: self.composition)
-    playerItem.videoComposition = self.videoComposition
-    playerItem.audioMix = self.audioMix
-    
-    return playerItem
-  }
   
+  // FIXME: Video Composition is not playing - figure out why??
+  // FIXME: Bar animation is not working  - figure out why??
   func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix){
     var nextClipStartTime = kCMTimeZero
     let clipsCount = clips.count
@@ -84,7 +79,7 @@ class SimpleEditor {
       
       // Remember the time range for the transition to the next item.
       if i+1 < clipsCount {
-        transitionTimeRanges[i] = CMTimeRangeMake(nextClipStartTime, transitionDuration)
+        transitionTimeRanges.append(CMTimeRangeMake(nextClipStartTime, transitionDuration))
       }
     }
     
@@ -136,7 +131,7 @@ class SimpleEditor {
   }
   
   func buildCompositionObjectsForPlayback(){
-    guard clips.count != 0 else { return }
+    if clips.count == 0 { return }
     
     guard let videoSize = clips[0].tracksWithMediaType(AVMediaTypeVideo).first?.naturalSize else { fatalError("\(__LINE__) \(__FUNCTION__)") }
     let composition = AVMutableComposition()
@@ -158,6 +153,15 @@ class SimpleEditor {
     self.composition = composition;
     self.videoComposition = videoComposition;
     self.audioMix = audioMix;
+  }
+  
+  func playerItem() -> AVPlayerItem
+  {
+    let playerItem = AVPlayerItem(asset: self.composition)
+    playerItem.videoComposition = self.videoComposition
+    playerItem.audioMix = self.audioMix
+    
+    return playerItem
   }
   
 }

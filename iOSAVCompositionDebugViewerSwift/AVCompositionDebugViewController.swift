@@ -96,7 +96,9 @@ class AVCompositionDebugViewController: UIViewController {
     
     // Build AVComposition and AVVideoComposition objects for playback
     editor.buildCompositionObjectsForPlayback()
-    synchronizePlayerWithEditor()
+    
+    // FIXME: Uncommenting this causes a crash - figure out why. 
+    //synchronizePlayerWithEditor()
     
     // Set our AVPlayer and all composition objects on the AVCompositionDebugView
     compositionDebugView.player = player
@@ -204,13 +206,14 @@ class AVCompositionDebugViewController: UIViewController {
   }
 
   func synchronizePlayerWithEditor() {
-    if self.playerItem != editor.playerItem {
+
+    if self.playerItem != editor.playerItem() {
       if let playerItem = playerItem {
         playerItem.removeObserver(self, forKeyPath: "status")
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
       }
-      
-      playerItem = editor.playerItem
+
+      playerItem = editor.playerItem()
       
       if let playerItem = playerItem {
         // Observe the player item "status" key to determine when it is ready to play
