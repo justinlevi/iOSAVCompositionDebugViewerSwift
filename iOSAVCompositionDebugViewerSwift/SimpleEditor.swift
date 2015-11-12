@@ -6,13 +6,21 @@ let kDefaultTransitionDuration: Double = 2.0
 
 class SimpleEditor {
   
-  var clips = [AVURLAsset]()
+  var clips = [AVAsset]()
   var clipTimeRanges = [CMTimeRange]()
-  let transitionDuration = CMTimeMakeWithSeconds(kDefaultTransitionDuration, 600)
+  var transitionDuration = CMTimeMakeWithSeconds(kDefaultTransitionDuration, 600)
 
   var composition = AVMutableComposition()
   var videoComposition = AVMutableVideoComposition()
   var audioMix = AVMutableAudioMix()
+  
+  var playerItem: AVPlayerItem {
+    let playerItem = AVPlayerItem(asset: self.composition)
+    playerItem.videoComposition = self.videoComposition
+    playerItem.audioMix = self.audioMix
+    
+    return playerItem
+  }
   
   func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix){
     var nextClipStartTime = kCMTimeZero
@@ -151,15 +159,6 @@ class SimpleEditor {
     self.videoComposition = videoComposition;
     self.audioMix = audioMix;
   }
-  
-  func getPlayerItem() -> AVPlayerItem {
-    let playerItem = AVPlayerItem(asset: self.composition)
-    playerItem.videoComposition = self.videoComposition
-    playerItem.audioMix = self.audioMix
-    
-    return playerItem
-  }
-
   
 }
 
