@@ -16,7 +16,8 @@ class SimpleEditor {
   
   // FIXME: Video Composition is not playing - figure out why??
   // FIXME: Bar animation is not working  - figure out why??
-  func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix){
+  func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix, function: String = __FUNCTION__){
+    print("\(__LINE__) \(__FUNCTION__) \(function)")
     var nextClipStartTime = kCMTimeZero
     let clipsCount = clips.count
     
@@ -129,19 +130,23 @@ class SimpleEditor {
     videoComposition.instructions = instructions
   }
   
-  func buildCompositionObjectsForPlayback(){
+  func buildCompositionObjectsForPlayback(function: String = __FUNCTION__){
+    print("\(__LINE__) \(__FUNCTION__) \(function)")
     if clips.count == 0 { return }
     
     guard let videoSize = clips[0].tracksWithMediaType(AVMediaTypeVideo).first?.naturalSize else { fatalError("\(__LINE__) \(__FUNCTION__)") }
-    let composition = AVMutableComposition()
-    let videoComposition = AVMutableVideoComposition()
-    let audioMix = AVMutableAudioMix()
+    
+  
+//    let composition = AVMutableComposition()
+//    let videoComposition = AVMutableVideoComposition()
+//    let audioMix = AVMutableAudioMix()
     
     composition.naturalSize = videoSize
     // With transitions:
     // Place clips into alternating video & audio tracks in composition, overlapped by transitionDuration.
     // Set up the video composition to cycle between "pass through A", "transition from A to B",
     // "pass through B"
+
     
     buildTransitionComposition(composition, andVideoComposition: videoComposition, andAudioMix: audioMix)
     
@@ -149,13 +154,17 @@ class SimpleEditor {
     videoComposition.frameDuration = CMTimeMake(1, 30); // 30 fps
     videoComposition.renderSize = videoSize;
     
-    self.composition = composition;
-    self.videoComposition = videoComposition;
-    self.audioMix = audioMix;
+//    self.composition = composition;
+//    self.videoComposition = videoComposition;
+//    self.audioMix = audioMix;
   }
   
-  func playerItem() -> AVPlayerItem
+  func playerItem(function: String = __FUNCTION__) -> AVPlayerItem?
   {
+    print("\(__LINE__) \(__FUNCTION__) \(function)")
+    
+    guard composition.tracks.count > 0 else { return nil }
+    
     let playerItem = AVPlayerItem(asset: self.composition)
     playerItem.videoComposition = self.videoComposition
     playerItem.audioMix = self.audioMix
