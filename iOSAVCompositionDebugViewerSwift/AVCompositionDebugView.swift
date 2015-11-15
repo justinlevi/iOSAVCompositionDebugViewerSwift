@@ -209,11 +209,6 @@ class AVCompositionDebugView: UIView {
     drawingLayer.delegate = self
     drawingLayer.setNeedsDisplay()
   }
-  
-  // TODO: Is this right??? There is no viewWillDisappear method on a UIView Subclass
-  func viewWillDisappear(animated: Bool){
-    drawingLayer.delegate = nil
-  }
 
   override func drawRect(rect: CGRect) {
     let context = UIGraphicsGetCurrentContext()
@@ -228,10 +223,7 @@ class AVCompositionDebugView: UIView {
       NSParagraphStyleAttributeName: style
     ]
     let numBanners = compositionTracks.count + audioMixTracks.count + videoCompositionStages.count
-    
-    //FIXME: This doesn't make sense in the original
-    let numRows = compositionTracks.count + audioMixTracks.count //+ videoCompositionStages
-    //int numRows = (int)[compositionTracks count] + (int)[audioMixTracks count] + (videoCompositionStages != nil)
+    let numRows = compositionTracks.count + audioMixTracks.count
     
     let totalBannerHeight = CGFloat(numBanners) * (kBannerHeight + kGapAfterRows)
     var rowHeight = kIdealRowHeight
@@ -475,7 +467,7 @@ class AVCompositionDebugView: UIView {
       
       // We add the red band layer along with the scrubbing animation to a AVSynchronizedLayer to have precise timing information
       if let currentItem = self.player?.currentItem {
-        var syncLayer = AVSynchronizedLayer(playerItem: currentItem)
+        let syncLayer = AVSynchronizedLayer(playerItem: currentItem)
         syncLayer.addSublayer(timeMarkerRedBandLayer)
         
         self.layer.addSublayer(syncLayer)

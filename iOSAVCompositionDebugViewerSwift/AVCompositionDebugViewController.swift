@@ -82,8 +82,6 @@ class AVCompositionDebugViewController: UIViewController {
     
     // Build AVComposition and AVVideoComposition objects for playback
     editor.buildCompositionObjectsForPlayback()
-    
-    // FIXME: Uncommenting this causes a crash - figure out why.
     synchronizePlayerWithEditor()
     
     // Set our AVPlayer and all composition objects on the AVCompositionDebugView
@@ -328,14 +326,24 @@ class AVCompositionDebugViewController: UIViewController {
       seconds = 0
     }
     
-    var secondsInt = round(seconds)
-    let minutes = secondsInt/60
-    secondsInt -= minutes * 60
-    
     self.currentTimeLabel.textColor = UIColor(white: 1, alpha: 1)
     self.currentTimeLabel.textAlignment = NSTextAlignment.Center
     
-    self.currentTimeLabel.text = String(format: "%.2i:%.2i", minutes, secondsInt)
+    self.currentTimeLabel.text = stringFromTimeInterval(seconds)
+  }
+  
+  func stringFromTimeInterval(interval: NSTimeInterval) -> String {
+    
+    let ti = NSInteger(interval)
+    let seconds = ti % 60
+    let minutes = (ti / 60) % 60
+    let hours = (ti / 3600)
+    
+    if hours > 0 {
+      return NSString(format: "%.2i:%.2i:%.2i", hours, minutes, seconds) as String
+    }else {
+      return String(format:"%.2i:%.2i", minutes, seconds)
+    }
   }
 
   func updateScubber() {
