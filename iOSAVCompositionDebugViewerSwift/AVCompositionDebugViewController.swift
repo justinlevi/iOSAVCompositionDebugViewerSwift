@@ -169,8 +169,7 @@ class AVCompositionDebugViewController: UIViewController {
         guard asset.composable else { throw AVCompositionError.NotComposable }
         
         self.clips.append(asset)
-        // This code assumes that both assets are atleast 5 seconds long.
-        // TODO: this doesn't seem like a good idea...
+        // TODO: This code assumes that both assets are atleast 5 seconds long... this doesn't seem like a good idea...
         self.clipTimeRanges.append(CMTimeRangeMake(CMTimeMakeWithSeconds(0,1), CMTimeMakeWithSeconds(5, 1)))
       } catch {
         fatalError("\((error as? AVCompositionError)?.description)")
@@ -206,7 +205,7 @@ class AVCompositionDebugViewController: UIViewController {
   func synchronizeWithEditor(){
     
     // Clips
-    synchronizeEditorClipsWithOurClips()
+    editor.clips = clips
     synchronizeEditorClipTimeRangesWithOurClipTimeRanges()
     
     // Transitions
@@ -224,21 +223,6 @@ class AVCompositionDebugViewController: UIViewController {
     compositionDebugView.player = player
     compositionDebugView.synchronizeToComposition(editor.composition, videoComposition:editor.videoComposition, audioMix:editor.audioMix)
     compositionDebugView.setNeedsDisplay()
-  }
-  
-  func synchronizeEditorClipsWithOurClips(){
-    
-    // TODO: I don't think this is necessary. 
-    // The Obj-C code validated that the assets weren't a NSNULL class
-    // I don't think they can be here
-    var validClips = [AVAsset]()
-    for asset in clips {
-      if asset.composable {
-        validClips.append(asset)
-      }
-    }
-    
-    editor.clips = validClips
   }
   
   func synchronizeEditorClipTimeRangesWithOurClipTimeRanges(){

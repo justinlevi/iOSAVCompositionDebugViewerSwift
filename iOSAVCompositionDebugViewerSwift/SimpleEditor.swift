@@ -14,8 +14,6 @@ class SimpleEditor {
   var videoComposition = AVMutableVideoComposition()
   var audioMix = AVMutableAudioMix()
   
-  // FIXME: Video Composition is not playing - figure out why??
-  // FIXME: Bar animation is not working  - figure out why??
   func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix){
     
     var nextClipStartTime = kCMTimeZero
@@ -74,7 +72,7 @@ class SimpleEditor {
       
       // The end of this clip will overlap the start of the next by transitionDuration.
       // (Note: this arithmetic falls apart if timeRangeInAsset.duration < 2 * transitionDuration.)
-      // TODO: this needs to be fixed too!
+      // TODO: The arithmetic here needs to be be more flexible. 
       nextClipStartTime = CMTimeAdd(nextClipStartTime, timeRangeInAsset.duration)
       nextClipStartTime = CMTimeSubtract(nextClipStartTime, transitionDuration)
       
