@@ -16,8 +16,8 @@ class SimpleEditor {
   
   // FIXME: Video Composition is not playing - figure out why??
   // FIXME: Bar animation is not working  - figure out why??
-  func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix, function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func buildTransitionComposition(composition: AVMutableComposition, andVideoComposition: AVMutableVideoComposition, andAudioMix audioMix: AVMutableAudioMix){
+    
     var nextClipStartTime = kCMTimeZero
     let clipsCount = clips.count
     
@@ -74,6 +74,7 @@ class SimpleEditor {
       
       // The end of this clip will overlap the start of the next by transitionDuration.
       // (Note: this arithmetic falls apart if timeRangeInAsset.duration < 2 * transitionDuration.)
+      // TODO: this needs to be fixed too!
       nextClipStartTime = CMTimeAdd(nextClipStartTime, timeRangeInAsset.duration)
       nextClipStartTime = CMTimeSubtract(nextClipStartTime, transitionDuration)
       
@@ -130,8 +131,8 @@ class SimpleEditor {
     videoComposition.instructions = instructions
   }
   
-  func buildCompositionObjectsForPlayback(function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func buildCompositionObjectsForPlayback(){
+    
     if clips.count == 0 { return }
     
     guard let videoSize = clips[0].tracksWithMediaType(AVMediaTypeVideo).first?.naturalSize else { fatalError("\(__LINE__) \(__FUNCTION__)") }
@@ -159,9 +160,9 @@ class SimpleEditor {
 //    self.audioMix = audioMix;
   }
   
-  func playerItem(function: String = __FUNCTION__) -> AVPlayerItem?
+  func playerItem() -> AVPlayerItem?
   {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+    
     
     guard composition.tracks.count > 0 else { return nil }
     

@@ -95,12 +95,10 @@ class AVCompositionDebugView: UIView {
   // ============================================
   // MARK: -  Value Harvesting
   
-  func synchronizeToComposition(composition: AVComposition?, videoComposition: AVVideoComposition?, audioMix: AVAudioMix?, function: String = __FUNCTION__) {
+  func synchronizeToComposition(composition: AVComposition?, videoComposition: AVVideoComposition?, audioMix: AVAudioMix?) {
     compositionTracks = []
     audioMixTracks = []
     videoCompositionStages = []
-    
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
     
     duration = CMTimeMake(1, 1) // avoid division by zero later
     // composition

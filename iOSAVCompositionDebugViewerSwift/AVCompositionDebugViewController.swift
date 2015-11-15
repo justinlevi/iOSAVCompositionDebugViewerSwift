@@ -3,22 +3,19 @@ import AVFoundation
 import Foundation
 import Dispatch
 
-enum AVCompositionError: ErrorType{
+enum AVCompositionError: ErrorType, CustomStringConvertible{
   case NoMediaData
   case NotComposable
+  
+  var description: String {
+    switch self {
+    case .NoMediaData: return "No Media Data"
+    case .NotComposable: return "Not Composable"
+    }
+  }
 }
 
 class AVCompositionDebugViewController: UIViewController {
-  
-  
-  // ============================================
-  // MARK: -  Types
-  
-  enum Result {
-    case Success
-    case Cancellation
-    case Failure(ErrorType)
-  }
   
 
   // ============================================
@@ -46,17 +43,6 @@ class AVCompositionDebugViewController: UIViewController {
   
   // A token obtained from calling `player`'s `addPeriodicTimeObserverForInterval(_:queue:usingBlock:)` method.
   var timeObserverToken: AnyObject?
-  
-  var result: Result? {
-    willSet {
-      willChangeValueForKey("isExecuting")
-      willChangeValueForKey("isFinished")
-    }
-    didSet {
-      didChangeValueForKey("isExecuting")
-      didChangeValueForKey("isFinished")
-    }
-  }
   
   // ============================================
   // MARK: -  Outlets
@@ -86,7 +72,6 @@ class AVCompositionDebugViewController: UIViewController {
   }
   
   override func viewDidAppear(animated: Bool) {
-    print("\(__LINE__) \(__FUNCTION__)")
     super.viewDidAppear(animated)
     
     seekToZeroBeforePlaying = false
@@ -119,7 +104,6 @@ class AVCompositionDebugViewController: UIViewController {
   // MARK: - KVO Observation
   // Update our UI when player or `player.currentItem` changes.
   override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-    print("\(__LINE__) \(__FUNCTION__)")
     // Make sure the this KVO callback was intended for this view controller.
     guard context == &playerViewControllerKVOContext else {
       super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
@@ -155,8 +139,8 @@ class AVCompositionDebugViewController: UIViewController {
   // ============================================
   // MARK: -  Simple Editor
   
-  func setupEditingAndPlayback(function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func setupEditingAndPlayback(){
+    
     let asset1 = AVURLAsset(URL: NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("sample_clip1", ofType: "m4v")!))
     let asset2 = AVURLAsset(URL: NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("sample_clip2", ofType: "mov")!))
     
@@ -167,13 +151,12 @@ class AVCompositionDebugViewController: UIViewController {
     loadAsset(asset2, withKeys: assetKeysToLoadAndTest, usingDispatchGroup: dispatchGroup)
     
     dispatch_group_notify(dispatchGroup, dispatch_get_main_queue()){ [weak self] in
-      print("\(__LINE__) \(__FUNCTION__)")
       self?.synchronizeWithEditor()
     }
   }
   
-  func loadAsset(asset: AVAsset, withKeys assetKeysToLoad: [String], usingDispatchGroup dispatchGroup: dispatch_group_t, function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func loadAsset(asset: AVAsset, withKeys assetKeysToLoad: [String], usingDispatchGroup dispatchGroup: dispatch_group_t){
+    
     dispatch_group_enter(dispatchGroup)
     asset.loadValuesAsynchronouslyForKeys(assetKeysToLoad) {
       
@@ -192,26 +175,14 @@ class AVCompositionDebugViewController: UIViewController {
         // TODO: this doesn't seem like a good idea...
         self.clipTimeRanges.append(CMTimeRangeMake(CMTimeMakeWithSeconds(0,1), CMTimeMakeWithSeconds(5, 1)))
       } catch {
-        self.finish(.Failure(error))
+        fatalError("\((error as? AVCompositionError)?.description)")
       }
       dispatch_group_leave(dispatchGroup)
     }
   }
-  
-  func finish(result: Result, function: String = __FUNCTION__) {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
-    self.result = result
-    print(self.result.debugDescription)
-    
-    switch result {
-    case .Success: break
-    case .Cancellation : break
-    case let .Failure(error): handleErrorWithMessage("\(error)")
-    }
-  }
 
-  func synchronizePlayerWithEditor(function: String = __FUNCTION__) {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func synchronizePlayerWithEditor() {
+    
     if self.playerItem != editor.playerItem() {
       if let playerItem = playerItem {
         playerItem.removeObserver(self, forKeyPath: "status")
@@ -234,8 +205,8 @@ class AVCompositionDebugViewController: UIViewController {
     }
   }
   
-  func synchronizeWithEditor(function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func synchronizeWithEditor(){
+    
     // Clips
     synchronizeEditorClipsWithOurClips()
     synchronizeEditorClipTimeRangesWithOurClipTimeRanges()
@@ -257,8 +228,8 @@ class AVCompositionDebugViewController: UIViewController {
     compositionDebugView.setNeedsDisplay()
   }
   
-  func synchronizeEditorClipsWithOurClips(function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func synchronizeEditorClipsWithOurClips(){
+    
     // TODO: I don't think this is necessary. 
     // The Obj-C code validated that the assets weren't a NSNULL class
     // I don't think they can be here
@@ -272,8 +243,8 @@ class AVCompositionDebugViewController: UIViewController {
     editor.clips = validClips
   }
   
-  func synchronizeEditorClipTimeRangesWithOurClipTimeRanges(function: String = __FUNCTION__){
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func synchronizeEditorClipTimeRangesWithOurClipTimeRanges(){
+    
     var validClipTimeRanges = [CMTimeRange]()
     for timeRange in clipTimeRanges {
       if timeRange.isValid {
@@ -287,8 +258,8 @@ class AVCompositionDebugViewController: UIViewController {
   // ============================================
   // MARK: -  Utilities
   
-  func addTimeObserverToPlayer(function: String = __FUNCTION__) {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func addTimeObserverToPlayer() {
+    
     guard timeObserverToken == nil else { return }
     //guard player.currentItem?.status == .ReadyToPlay else { return }
     
@@ -310,16 +281,16 @@ class AVCompositionDebugViewController: UIViewController {
     
   }
   
-  func removeTimeObserverFromPlayer(function: String = __FUNCTION__) {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func removeTimeObserverFromPlayer() {
+    
     if let timeObserverToken = timeObserverToken {
       player.removeTimeObserver(timeObserverToken)
     }
     timeObserverToken = nil
   }
   
-  func playerItemDuration(function: String = __FUNCTION__) -> CMTime {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func playerItemDuration() -> CMTime {
+    
     guard let playerItem = player.currentItem else {
       return kCMTimeInvalid
     }
@@ -350,8 +321,8 @@ class AVCompositionDebugViewController: UIViewController {
     playPauseButton.setImage(buttonImage, forState: .Normal)
   }
   
-  func updateTimeLabel(function: String = __FUNCTION__) {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func updateTimeLabel() {
+    
     var seconds = CMTimeGetSeconds(self.player.currentTime())
     if (!isfinite(seconds)) {
       seconds = 0
@@ -367,8 +338,8 @@ class AVCompositionDebugViewController: UIViewController {
     self.currentTimeLabel.text = String(format: "%.2i:%.2i", minutes, secondsInt)
   }
 
-  func updateScubber(function: String = __FUNCTION__) {
-    print("\(__LINE__) \(__FUNCTION__) \(function)")
+  func updateScubber() {
+    
     let duration = CMTimeGetSeconds(playerItemDuration())
     
     if (isfinite(duration)) {
