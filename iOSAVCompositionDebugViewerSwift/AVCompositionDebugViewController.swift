@@ -117,7 +117,7 @@ class AVCompositionDebugViewController: UIViewController {
         updateTimeLabel()
       
     }
-    else if keyPath == "currentItem.status" {
+    else if keyPath == "status" {
       /* Once the AVPlayerItem becomes ready to play, i.e.
       [playerItem status] == AVPlayerItemStatusReadyToPlay,
       its duration can be fetched from the item. */
@@ -261,14 +261,14 @@ class AVCompositionDebugViewController: UIViewController {
   func addTimeObserverToPlayer() {
     
     guard timeObserverToken == nil else { return }
-    //guard player.currentItem?.status == .ReadyToPlay else { return }
+    guard player.currentItem?.status == .ReadyToPlay else { return }
     
     let duration = CMTimeGetSeconds(playerItemDuration())
     
     if isfinite(duration) {
-      let width = CGRectGetWidth(self.scrubber.bounds)
-      // Make sure we don't have a strong reference cycle by only capturing self as weak.
       let interval = CMTimeMake(1, 60)
+      
+      // Make sure we don't have a strong reference cycle by only capturing self as weak.
       timeObserverToken = player.addPeriodicTimeObserverForInterval(interval, queue: dispatch_get_main_queue()) {
         [weak self] time in
         
@@ -339,7 +339,7 @@ class AVCompositionDebugViewController: UIViewController {
   }
 
   func updateScubber() {
-    
+
     let duration = CMTimeGetSeconds(playerItemDuration())
     
     if (isfinite(duration)) {
