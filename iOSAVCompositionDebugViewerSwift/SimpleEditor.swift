@@ -130,15 +130,9 @@ class SimpleEditor {
   }
   
   func buildCompositionObjectsForPlayback(){
-    
     if clips.count == 0 { return }
     
     guard let videoSize = clips[0].tracksWithMediaType(AVMediaTypeVideo).first?.naturalSize else { fatalError("\(__LINE__) \(__FUNCTION__)") }
-    
-  
-//    let composition = AVMutableComposition()
-//    let videoComposition = AVMutableVideoComposition()
-//    let audioMix = AVMutableAudioMix()
     
     composition.naturalSize = videoSize
     // With transitions:
@@ -146,22 +140,14 @@ class SimpleEditor {
     // Set up the video composition to cycle between "pass through A", "transition from A to B",
     // "pass through B"
 
-    
     buildTransitionComposition(composition, andVideoComposition: videoComposition, andAudioMix: audioMix)
     
     // Every videoComposition needs these properties to be set:
     videoComposition.frameDuration = CMTimeMake(1, 30); // 30 fps
     videoComposition.renderSize = videoSize;
-    
-//    self.composition = composition;
-//    self.videoComposition = videoComposition;
-//    self.audioMix = audioMix;
   }
   
-  func playerItem() -> AVPlayerItem?
-  {
-    
-    
+  func playerItem() -> AVPlayerItem? {
     guard composition.tracks.count > 0 else { return nil }
     
     let playerItem = AVPlayerItem(asset: self.composition)
